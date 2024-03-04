@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Management Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-top: 50px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logout-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .top-left-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                max-width: 100%;
+            }
+        }
+    </style>
+    <style>
+        /* Additional CSS for responsiveness and aesthetics */
+        body {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 36px;
+            font-weight: bold;
+            color: #007bff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            margin-top: 40px;
+        }
+
+        input[type="submit"] {
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logout-link {
+            margin-top: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-left-link {
+            margin-top: 20px;
+            margin-left: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            form {
+                margin-top: 30px;
+            }
+
+            input[type="submit"] {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            .logout-link {
+                margin-top: 30px;
+                font-size: 16px;
+            }
+
+            .message {
+                margin-top: 30px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('dashboard') }}" class="top-left-link">Go back to Dashboard</a>
+    <h1>Manage Your Containers</h1>
+    <div class="container">
+        <form action="/start" method="post">
+            <input type="submit" value="Start Container">
+        </form>
+        <form action="/stop" method="post">
+            <input type="submit" value="Stop Container">
+        </form>
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="message">
+                    {% for message in messages %}
+                        {% if message in ['Starting container...', 'Stopping container...'] %}
+                            <p>{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

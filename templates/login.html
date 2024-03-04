@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #555;
+        }
+        .error-message {
+            text-align: center;
+            color: red;
+            margin-top: 10px;
+        }
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+        }
+        /* BEGIN: Additional Styles */
+        .container {
+            margin-top: 50px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        input[type="submit"] {
+            background-color: #555;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #4CAF50;
+        }
+        .register-link:hover {
+            color: #4CAF50;
+        }
+        /* END: Additional Styles */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        {% if not user_exists %}
+            {% if request.method == 'POST' %}
+                <p class="error-message">User not found. Please check your credentials.</p>
+            {% endif %}
+        {% endif %}
+        <form method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+        <a href="{{ url_for('register') }}" class="register-link">Register</a>
+    </div>
+</body>
+</html>
