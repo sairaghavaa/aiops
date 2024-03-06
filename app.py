@@ -7,9 +7,9 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 # Replace these URLs with your actual API Gateway URLs
-START_CONTAINER_URL = 'https://example.com/start'
-STOP_CONTAINER_URL = 'https://example.com/stop'
-LIST_IMAGES_URL = 'https://uun2e0c5i4.execute-api.eu-west-2.amazonaws.com/default/testing-ECR-POC'
+START_CONTAINER_URL = 'https://hxne0mx1c7.execute-api.eu-west-2.amazonaws.com/default/start-container-dev01-env01'
+STOP_CONTAINER_URL = 'https://3n17o14t52.execute-api.eu-west-2.amazonaws.com/default/shutdown-container-dev01-env01'
+LIST_IMAGES_URL = 'https://e05lpgn9h3.execute-api.eu-west-2.amazonaws.com/default/Test-POC-ECR'
 
 # Placeholder for user storage (consider using a database in production)
 users = {'admin': 'password'}
@@ -98,6 +98,7 @@ def is_new_image(image_pushed_at, threshold_hours=24):
     return (datetime.utcnow() - pushed_at_dt).total_seconds() < threshold_hours * 3600
 
 
+
 @app.route('/list_images', methods=['GET'])
 def list_images():
     if 'username' not in session:
@@ -108,13 +109,14 @@ def list_images():
         response = requests.get(LIST_IMAGES_URL)
         if response.status_code == 200:
             images = response.json()
-            # Get the repository name from the first image's repositoryName
-            repository_name = images[0]['repositoryName'] if images else 'ECR'
-            # Sort and mark new images
-            images.sort(key=lambda x: x['imagePushedAt'], reverse=True)
-            for image in images:
-                image['isNew'] = is_new_image(image['imagePushedAt'])
-            return render_template('list_images.html', images=images, repository_name=repository_name)
+            # Sort images by repository name
+            images.sort(key=lambda x: x[0]['repositoryName'])
+            # Sort and mark new images within each repository
+            for repository in images:
+                repository.sort(key=lambda x: x['imagePushedAt'], reverse=True)
+                for image in repository:
+                    image['isNew'] = is_new_image(image['imagePushedAt'])
+            return render_template('list_images.html', images=images)
         else:
             flash('Could not fetch images. Please try again.')
             return redirect(url_for('dashboard'))
