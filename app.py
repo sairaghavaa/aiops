@@ -1,4 +1,3 @@
-# loign register and dashboard start stop container
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import requests
@@ -98,6 +97,7 @@ def is_new_image(image_pushed_at, threshold_hours=24):
     pushed_at_dt = datetime.strptime(image_pushed_at, "%Y-%m-%d %H:%M:%S")
     return (datetime.utcnow() - pushed_at_dt).total_seconds() < threshold_hours * 3600
 
+
 @app.route('/list_images', methods=['GET'])
 def list_images():
     if 'username' not in session:
@@ -108,11 +108,13 @@ def list_images():
         response = requests.get(LIST_IMAGES_URL)
         if response.status_code == 200:
             images = response.json()
+            # Get the repository name from the first image's repositoryName
+            repository_name = images[0]['repositoryName'] if images else 'ECR'
             # Sort and mark new images
             images.sort(key=lambda x: x['imagePushedAt'], reverse=True)
             for image in images:
                 image['isNew'] = is_new_image(image['imagePushedAt'])
-            return render_template('list_images.html', images=images)
+            return render_template('list_images.html', images=images, repository_name=repository_name)
         else:
             flash('Could not fetch images. Please try again.')
             return redirect(url_for('dashboard'))

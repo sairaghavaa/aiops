@@ -2,93 +2,89 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6f42c1, #79589f);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
         .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
             background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
         }
         h2 {
             text-align: center;
             color: #333;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         form {
             margin-top: 20px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             color: #555;
+            font-weight: 500;
         }
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px 20px;
             border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-bottom: 10px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .register-link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            color: #555;
-        }
-        .error-message {
-            text-align: center;
-            color: red;
-            margin-top: 10px;
-        }
-        @media screen and (max-width: 600px) {
-            .container {
-                max-width: 100%;
-                padding: 10px;
-            }
-        }
-        /* BEGIN: Additional Styles */
-        .container {
-            margin-top: 50px;
-        }
-        input[type="text"],
-        input[type="password"],
-        input[type="submit"] {
+            border-radius: 5px;
+            margin-bottom: 20px;
             transition: all 0.3s ease-in-out;
         }
         input[type="text"]:focus,
         input[type="password"]:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            border-color: #7c89e7;
+            box-shadow: 0 0 5px rgba(124, 137, 231, 0.5);
         }
         input[type="submit"] {
-            background-color: #555;
+            width: 100%;
+            padding: 14px;
+            background-color: #7c89e7;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease-in-out;
         }
         input[type="submit"]:hover {
-            background-color: #4CAF50;
+            background-color: #5c6bc0;
+        }
+        .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
         }
         .register-link:hover {
-            color: #4CAF50;
+            color: #7c89e7;
         }
-        /* END: Additional Styles */
+        .error-message {
+            text-align: center;
+            color: #e74c3c;
+            margin-top: 10px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>

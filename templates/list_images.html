@@ -2,101 +2,170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of ECR Images</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Images for {{ repository_name }} Repository</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6f42c1, #79589f);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        
+
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 900px;
+            width: 90%;
         }
-        
+
         h1 {
             text-align: center;
             color: #333;
-            font-size: 36px;
-            margin-bottom: 30px;
+            font-size: 42px;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background-color: #6f42c1;
+            border-radius: 3px;
+        }
+
         .image-card {
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
-        
-        .image-card.new {
-            color: green;
+
+        .image-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
         }
-        
+
+        .image-card.new .repository-name {
+            color: #2ecc71;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
         .image-card .tag {
             font-weight: bold;
-            font-size: 18px;
+            font-size: 20px;
+            color: #6f42c1;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .image-card .repository-name {
+            color: #888;
+            font-size: 16px;
+            margin-left: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
         .image-card .pushed-at {
             color: #888;
-            font-size: 14px;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
-        
+
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 30px;
-            color: #333;
+            margin-top: 40px;
+            color: #6f42c1;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
-        
-        @media only screen and (max-width: 600px) {
-            .container {
-                padding: 10px;
+
+        .back-link:hover {
+            color: #4d49b8;
+        }
+
+        .back-link i {
+            margin-right: 8px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            body {
+                padding: 20px;
             }
-            
+
+            .container {
+                padding: 30px;
+            }
+
             h1 {
-                font-size: 24px;
+                font-size: 36px;
+                margin-bottom: 30px;
+                padding-bottom: 15px;
+            }
+
+            h1::after {
+                width: 80px;
+                height: 4px;
+            }
+
+            .image-card {
+                padding: 20px;
                 margin-bottom: 20px;
             }
-            
-            .image-card {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            
+
             .image-card .tag {
-                font-size: 16px;
+                font-size: 18px;
             }
-            
-            .image-card .pushed-at {
-                font-size: 12px;
-            }
-            
-            .back-link {
-                margin-top: 20px;
+
+            .image-card .repository-name {
                 font-size: 14px;
+            }
+
+            .image-card .pushed-at {
+                font-size: 14px;
+            }
+
+            .back-link {
+                margin-top: 30px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>List of ECR Images</h1>
+        <h1>List of Images for {{ repository_name }} Repository</h1>
         <div>
             {% for image in images %}
                 <div class="image-card {% if image.isNew %}new{% endif %}">
-                    <span class="tag">Tag:</span> {{ image.imageTag }} - <span class="pushed-at">Pushed At:</span> {{ image.imagePushedAt }}
+                    <span class="tag">Tag:</span> {{ image.imageTag }}  <span class="pushed-at">Pushed At:</span> {{ image.imagePushedAt }}
                 </div>
             {% endfor %}
         </div>
-        <a href="{{ url_for('dashboard') }}" class="back-link">Back to Dashboard</a>
+        <a href="{{ url_for('dashboard') }}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
     </div>
 </body>
 </html>
