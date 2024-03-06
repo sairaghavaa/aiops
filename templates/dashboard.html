@@ -119,7 +119,7 @@
                 <li>
                     {% if functionality == 'Start and Stop Containers' %}
                         <a href="{{ url_for('manage_containers') }}">{{ functionality }}</a>
-                    {% elif functionality == 'List ECS Images' %}
+                    {% elif functionality == 'List ECR Images' %}
                         <a href="{{ url_for('list_images') }}">{{ functionality }}</a>
                     {% else %}
                         {{ functionality }}
