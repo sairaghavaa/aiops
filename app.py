@@ -3,13 +3,14 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import requests
 import os
-
+from datetime import datetime
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 # Replace these URLs with your actual API Gateway URLs
 START_CONTAINER_URL = 'https://example.com/start'
 STOP_CONTAINER_URL = 'https://example.com/stop'
+LIST_IMAGES_URL = 'https://uun2e0c5i4.execute-api.eu-west-2.amazonaws.com/default/testing-ECR-POC'
 
 # Placeholder for user storage (consider using a database in production)
 users = {'admin': 'password'}
@@ -24,7 +25,7 @@ def home():
 def dashboard():
     if 'username' not in session:
         return redirect(url_for('login'))
-    functionalities = ['Start and Stop Containers']  # Add more functionalities as needed
+    functionalities = ['Start and Stop Containers', 'List ECS Images']  # Add more functionalities as needed
     return render_template('dashboard.html', functionalities=functionalities)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -92,5 +93,34 @@ def stop_container():
         flash(ERROR_MESSAGE)
     return render_template(INDEX_HTML)  # Change from redirect to render_template
 
+def is_new_image(image_pushed_at, threshold_hours=24):
+    # Convert the string to a datetime object
+    pushed_at_dt = datetime.strptime(image_pushed_at, "%Y-%m-%d %H:%M:%S")
+    return (datetime.utcnow() - pushed_at_dt).total_seconds() < threshold_hours * 3600
+
+@app.route('/list_images', methods=['GET'])
+def list_images():
+    if 'username' not in session:
+        flash('Please log in to view the images.')
+        return redirect(url_for('login'))
+
+    try:
+        response = requests.get(LIST_IMAGES_URL)
+        if response.status_code == 200:
+            images = response.json()
+            # Sort and mark new images
+            images.sort(key=lambda x: x['imagePushedAt'], reverse=True)
+            for image in images:
+                image['isNew'] = is_new_image(image['imagePushedAt'])
+            return render_template('list_images.html', images=images)
+        else:
+            flash('Could not fetch images. Please try again.')
+            return redirect(url_for('dashboard'))
+    except requests.exceptions.RequestException as e:
+        flash('An error occurred while trying to fetch images.')
+        return redirect(url_for('dashboard'))
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+# JSON response with a list of images, each with a name and pushedAt field.

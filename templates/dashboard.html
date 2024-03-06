@@ -60,15 +60,39 @@
             align-items: center;
             justify-content: center;
             margin-top: 100px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+            font-size: 48px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         ul {
             text-align: center;
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 40px;
         }
         li {
             margin-bottom: 20px;
+            font-size: 24px;
+            color: #555;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         a {
             font-weight: bold;
+            font-size: 24px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+        a:hover {
+            color: #0056b3;
         }
         /* END: Additional Styles */
     </style>
@@ -81,6 +105,8 @@
                 <li>
                     {% if functionality == 'Start and Stop Containers' %}
                         <a href="{{ url_for('manage_containers') }}">Start and Stop Containers</a>
+                    {% elif functionality == 'List ECS Images' %}
+                        <a href="{{ url_for('list_images') }}">List ECR Images</a>
                     {% else %}
                         {{ functionality }}
                     {% endif %}
@@ -91,3 +117,7 @@
     </div>
 </body>
 </html>
+
+
+```
+ 
