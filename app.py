@@ -24,7 +24,7 @@ def home():
 def dashboard():
     if 'username' not in session:
         return redirect(url_for('login'))
-    functionalities = ['Start and Stop Containers', 'List ECR Images']  # Add more functionalities as needed
+    functionalities = ['Start and Stop Services','Deployment History Overview']  # Add more functionalities as needed
     return render_template('dashboard.html', functionalities=functionalities)
 
 @app.route('/login', methods=['GET', 'POST'])

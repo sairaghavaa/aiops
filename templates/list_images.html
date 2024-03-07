@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Profile hub Images</title>
+    <title>Profile Hub Deployment History</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -157,9 +157,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>List of Profile hub Images</h1>
+        <h1>Profile Hub Deployment History</h1>
         {% for repository in images %}
-            <h2>{{ repository[0].repositoryName }}</h2>
+            <h2>Service : {{ repository[0].repositoryName }}</h2>
             <div>
                 {% for image in repository %}
                     <div class="image-card {% if image.isNew %}new{% endif %}">

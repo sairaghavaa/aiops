@@ -173,13 +173,13 @@
 </head>
 <body>
     <a href="{{ url_for('dashboard') }}" class="top-left-link">Go back to Dashboard</a>
-    <h1>Manage Your Containers</h1>
+    <h1>Manage Your Services</h1>
     <div class="container">
         <form action="/start" method="post">
-            <input type="submit" value="Start Container">
+            <input type="submit" value="Start Service">
         </form>
         <form action="/stop" method="post">
-            <input type="submit" value="Stop Container">
+            <input type="submit" value="Stop Service">
         </form>
         <div style="display: flex; justify-content: center; margin-top: 20px;">
             <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
@@ -188,7 +188,7 @@
             {% if messages %}
                 <div class="message">
                     {% for message in messages %}
-                        {% if message in ['Starting container...', 'Stopping container...'] %}
+                        {% if message in ['Starting Service...', 'Stopping Service...'] %}
                             <p>{{ message }}</p>
                         {% endif %}
                     {% endfor %}
