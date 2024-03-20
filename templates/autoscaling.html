@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoscaling</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6f42c1, #9b59b6);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 500px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            color: #6f42c1;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .form-group label {
+            color: #6f42c1;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #6f42c1;
+            border-color: #6f42c1;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #5a32a3;
+            border-color: #5a32a3;
+        }
+        .alert-info {
+            background-color: #e2d9f3;
+            border-color: #d1c1e9;
+            color: #6f42c1;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #6f42c1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    
+        .back-link:hover {
+            color: #5a32a8;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-chart-line"></i> Autoscaling</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    <ul class="list-unstyled mb-0">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('autoscaling') }}">
+            <div class="form-group">
+                <label for="action">Action:</label>
+                <select class="form-control" id="action" name="action">
+                    <option value="Scale Up">Scale Up</option>
+                    <option value="Scale Down">Scale Down</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="num_instances">Number of Instances:</label>
+                <input type="number" class="form-control" id="num_instances" name="num_instances" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-check"></i> Submit</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}" class="back-link animate__animated animate__fadeInUp">Back to Dashboard</a>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitelist IP Address</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6f42c1, #9b59b6);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        h1 {
+            color: #6f42c1;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #6f42c1;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #6f42c1;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #6f42c1;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5a32a8;
+        }
+
+        .messages {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        .messages li {
+            color: #6f42c1;
+            margin-bottom: 5px;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #6f42c1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #5a32a8;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="animate__animated animate__bounceIn">Whitelist IP Address</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="messages animate__animated animate__fadeInUp">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('whitelist_ip') }}" class="animate__animated animate__fadeInUp">
+            <label for="ip_address">IP Address:</label>
+            <input type="text" id="ip_address" name="ip_address" placeholder="Enter IP address" required>
+            <input type="submit" value="Whitelist">
+        </form>
+        <a href="{{ url_for('dashboard') }}" class="back-link animate__animated animate__fadeInUp">Back to Dashboard</a>
+    </div>
+</body>
+</html>

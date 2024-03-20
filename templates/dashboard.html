@@ -120,6 +120,10 @@
                         <a href="{{ url_for('manage_containers') }}">{{ functionality }}</a>
                     {% elif functionality == 'Deployment History Overview' %}
                         <a href="{{ url_for('list_images') }}">{{ functionality }}</a>
+                    {% elif functionality == 'Whitelist IP' %}
+                        <a href="{{ url_for('whitelist_ip') }}">{{ functionality }}</a>
+                    {% elif functionality == 'Autoscaling' %}
+                        <a href="{{ url_for('autoscaling') }}">{{ functionality }}</a>
                     {% else %}
                         {{ functionality }}
                     {% endif %}
