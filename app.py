@@ -19,12 +19,15 @@ LIST_IMAGES_URL = None
 WHITELIST_IP_API_URL = None
 SCALE_CONTAINERS_URL = None
 
+
+# Home Route 
 @app.route('/')
 def home():
     if 'username' in session:
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
 
+#  Dashboard Route 
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
     if 'username' not in session:
@@ -32,6 +35,7 @@ def dashboard():
     functionalities = ['Start and Stop Services', 'Deployment History Overview', 'Whitelist IP', 'Autoscaling']
     return render_template('dashboard.html', functionalities=functionalities)
 
+# Login Page 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -67,6 +71,7 @@ def register():
             return redirect(url_for('login'))
     return render_template('register.html')
 
+# Select Environment after Successful Login 
 @app.route('/select_environment', methods=['GET', 'POST'])
 def select_environment():
     if request.method == 'POST':
