@@ -11,7 +11,7 @@ app.secret_key = os.urandom(16)
 users = {'admin': 'password'}
 roles = {'admin': 'DevOps', 'performance_tester': 'Performance Tester'}
 
-# Load environment-specific configurations
+
 env = None
 START_CONTAINER_URL = None
 STOP_CONTAINER_URL = None
@@ -20,14 +20,14 @@ WHITELIST_IP_API_URL = None
 SCALE_CONTAINERS_URL = None
 
 
-# Home Route 
+ 
 @app.route('/')
 def home():
     if 'username' in session:
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
 
-#  Dashboard Route 
+
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
     if 'username' not in session:
@@ -35,7 +35,7 @@ def dashboard():
     functionalities = ['Start and Stop Services', 'Deployment History Overview', 'Whitelist IP', 'Autoscaling']
     return render_template('dashboard.html', functionalities=functionalities)
 
-# Login Page 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
