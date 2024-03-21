@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -8,12 +10,13 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6f42c1, #79589f);
+            background: linear-gradient(135deg, #6f42c1, #9b59b6);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars */
         }
         .container {
             background-color: #fff;
@@ -22,6 +25,8 @@
             padding: 40px;
             max-width: 400px;
             width: 90%;
+            position: relative; /* Added for animated background */
+            z-index: 1; /* Ensure the container is above the animated background */
         }
         h2 {
             text-align: center;
@@ -29,6 +34,7 @@
             margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Added text shadow */
         }
         form {
             margin-top: 20px;
@@ -38,24 +44,27 @@
             margin-bottom: 10px;
             color: #555;
             font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Added text shadow */
         }
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 12px 20px;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 20px;
             transition: all 0.3s ease-in-out;
+            font-size: 14px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Added inner shadow */
         }
         input[type="text"]:focus,
         input[type="password"]:focus {
             border-color: #7c89e7;
-            box-shadow: 0 0 5px rgba(124, 137, 231, 0.5);
+            box-shadow: 0 0 5px rgba(124, 137, 231, 0.5), inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
         input[type="submit"] {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background-color: #7c89e7;
             color: #fff;
             border: none;
@@ -64,9 +73,11 @@
             font-weight: 500;
             letter-spacing: 1px;
             transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box shadow */
         }
         input[type="submit"]:hover {
             background-color: #5c6bc0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Added box shadow on hover */
         }
         .register-link {
             display: block;
@@ -75,15 +86,42 @@
             color: #555;
             text-decoration: none;
             transition: all 0.3s ease-in-out;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Added text shadow */
         }
         .register-link:hover {
             color: #7c89e7;
+            text-shadow: 1px 1px 2px rgba(124, 137, 231, 0.5); /* Added text shadow on hover */
         }
         .error-message {
             text-align: center;
             color: #e74c3c;
             margin-top: 10px;
             font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Added text shadow */
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(-100vh) scale(0);
+            }
+            100% {
+                transform: translateY(100vh) scale(1);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            input[type="text"],
+            input[type="password"],
+            input[type="submit"] {
+                font-size: 12px;
+            }
         }
     </style>
 </head>

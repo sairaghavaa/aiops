@@ -91,15 +91,6 @@
 <body>
     <div class="container">
         <h1>Select Environment</h1>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
         <form method="POST" action="{{ url_for('select_environment') }}">
             <label for="environment">Environment:</label>
             <select id="environment" name="environment" required>
@@ -110,14 +101,5 @@
             <button type="submit">Select</button>
         </form>
     </div>
-    <script>
-        setTimeout(function() {
-            const messages = document.querySelectorAll('li');
-            messages.forEach((msg) => {
-                msg.style.opacity = '0';
-                setTimeout(() => msg.remove(), 1000);
-            });
-        }, 5000); // messages fade out after 5 seconds
-    </script>
 </body>
 </html>
