@@ -11,7 +11,7 @@ app.secret_key = os.urandom(16)
 users = {'admin': 'password'}
 roles = {'admin': 'DevOps', 'performance_tester': 'Performance Tester'}
 
-# Load environment-specific configurations
+
 env = None
 START_CONTAINER_URL = None
 STOP_CONTAINER_URL = None
@@ -19,11 +19,14 @@ LIST_IMAGES_URL = None
 WHITELIST_IP_API_URL = None
 SCALE_CONTAINERS_URL = None
 
+
+ 
 @app.route('/')
 def home():
     if 'username' in session:
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
+
 
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
@@ -31,6 +34,7 @@ def dashboard():
         return redirect(url_for('login'))
     functionalities = ['Start and Stop Services', 'Deployment History Overview', 'Whitelist IP', 'Autoscaling']
     return render_template('dashboard.html', functionalities=functionalities)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -67,6 +71,7 @@ def register():
             return redirect(url_for('login'))
     return render_template('register.html')
 
+# Select Environment after Successful Login 
 @app.route('/select_environment', methods=['GET', 'POST'])
 def select_environment():
     if request.method == 'POST':
@@ -204,4 +209,4 @@ def autoscaling():
     return render_template('autoscaling.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=80)
