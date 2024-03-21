@@ -188,9 +188,9 @@
             {% if messages %}
                 <div class="message">
                     {% for message in messages %}
-                        {% if message in ['Starting Service...', 'Stopping Service...'] %}
-                            <p>{{ message }}</p>
-                        {% endif %}
+                    {% if message not in ['User registered successfully. Please login.','Username already exists','Username and password are required','Invalid username or password'] %}
+                    <p>{{ message }}</p>
+                {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}

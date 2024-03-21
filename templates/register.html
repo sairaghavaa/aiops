@@ -124,6 +124,13 @@
 <body>
     <div class="container">
         <h2>Register</h2>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         <p style="text-align: center;">Please fill in this form to create an account.</p>
         <form method="post">
             <label for="username">Username:</label>

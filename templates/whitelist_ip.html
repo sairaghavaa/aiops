@@ -198,8 +198,9 @@
                 <div class="messages animate__animated animate__fadeInUp">
                     <ul>
                         {% for message in messages %}
-                        
-                            <li>{{ message }}</li>
+                        {% if message not in ['User registered successfully. Please login.','Username already exists','Username and password are required','Invalid username or password'] %}
+                            <p>{{ message }}</p>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </div>

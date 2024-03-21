@@ -99,7 +99,13 @@
             font-weight: 500;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Added text shadow */
         }
-
+        .success-message {
+            text-align: center;
+            color: #2ecc71;
+            margin-top: 10px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Added text shadow */
+        }
         @keyframes animate {
             0% {
                 transform: translateY(-100vh) scale(0);
@@ -132,6 +138,15 @@
             {% if request.method == 'POST' %}
                 <p class="error-message">User not found. Please check your credentials.</p>
             {% endif %}
+        {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <p class="success-message">{{ message }}</p>
+                {% elif message.tags == 'error' %}
+                    <p class="error-message">{{ message }}</p>
+                {% endif %}
+            {% endfor %}
         {% endif %}
         <form method="post">
             <label for="username">Username:</label>
